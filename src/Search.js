@@ -36,7 +36,8 @@ class Search extends Component{
             }))
         }) 
     }
-    updateShelf =(book,shelf)=>{    
+    updateShelf =(book,shelf)=>{
+    book["shelf"]=shelf    
     this.props.update(book,shelf)
     }
     render(){
@@ -69,9 +70,12 @@ class Search extends Component{
                     <li key={book.id}>
                   <div className="book">
                     <div className="book-top">
-                      <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
+                    {book.imageLinks ?(<div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>)
+                    :
+                    (<div className="book-cover" style={{ width: 128, height: 192}}></div>)  
+                    }
                       <div className="book-shelf-changer">
-                          {found ? (<select value={found.shelf}onChange={(e)=>{this.updateShelf(book,e.target.value)}}>
+                          {found ? (<select value={found.shelf} onChange={(e)=>{this.updateShelf(book,e.target.value)}}>
                           <option value="move" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
@@ -90,7 +94,7 @@ class Search extends Component{
                       </div>
                     </div>
                     <div className="book-title">{book.title}</div>
-                    <div className="book-authors">{book.authors}</div>
+                    <div className="book-authors">{book.authors && book.authors.join(', ')}</div>
                   </div>
                 </li>
                 )}))}

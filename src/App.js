@@ -2,9 +2,7 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import {Route,Link} from 'react-router-dom'
-import CurrentlyReading from './CurrentlyReading'
-import WantToRead from './WantToRead'
-import Read from './Read'
+import Shelf from './Shelf'
 import Search from './Search'
 
 class BooksApp extends React.Component {
@@ -71,9 +69,10 @@ class BooksApp extends React.Component {
           </div>
           <div className="list-books-content">
             <div>
-             <CurrentlyReading books={this.state.books} update={this.updateShelf}/>
-             <WantToRead books={this.state.books} update={this.updateShelf}/> 
-             <Read books={this.state.books} update={this.updateShelf}/>
+             <Shelf books={this.state.books} update={this.updateShelf} shelfTitle="Currently Reading" shelf="currentlyReading"/> 
+             <Shelf books={this.state.books} update={this.updateShelf} shelfTitle="Want To Read" shelf="wantToRead"/> 
+             <Shelf books={this.state.books} update={this.updateShelf} shelfTitle="Read" shelf="read"/>
+
             </div>
           </div>
           <div className="open-search">
